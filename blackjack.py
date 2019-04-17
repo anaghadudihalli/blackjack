@@ -20,6 +20,7 @@ ranks_to_values = {
 }
 chips = 100
 bet = 0
+playing = True
 
 
 class Card:
@@ -73,8 +74,7 @@ class Hand:
 
 
 def place_bet():
-    global bet
-    global chips
+    global bet, chips
 
     while True:
         try:
@@ -99,7 +99,7 @@ def hit_or_stand(deck_, hand):
     global playing
     playing = True
 
-    while playing:
+    while True:
         player_input = input('Do you want to hit or stand? h/s: ').lower()
         print("Inside hit or stand")
 
@@ -170,29 +170,31 @@ def tie():
 
 
 def replay():
-    global chips
-    global bet
+    global chips, bet, playing
 
     replay_choice = input("Do you want to play again? y/n?").lower()
 
-    if replay_choice == 'y' and chips > 0:
-        while True:
-            chips_choice = input("Do you want to continue with same number of chips or renew them? s/r? ").lower()
-            if chips_choice == 's':
-                bet = 0
-                return True
-            elif chips_choice == 'r':
-                chips = 0
-                bet = 0
-                return True
-            else:
-                print("Invalid input. Please try again.")
-                continue
+    if replay_choice == 'y':
+        if chips > 0:
+            playing = True
+            while True:
+                chips_choice = input("Do you want to continue with same number of chips or renew them? s/r? ").lower()
+                if chips_choice == 's':
+                    bet = 0
+                    return True
+                elif chips_choice == 'r':
+                    chips = 0
+                    bet = 0
+                    return True
+                else:
+                    print("Invalid input. Please try again.")
+                    continue
+        else:
+            print("Sorry, you don't have any coins.")
 
 
 if __name__ == '__main__':
     print('\nWelcome to BlackJack! Get ready to play!! ')
-    playing = True
     while True:
         print('\nShuffling the deck ... Gimme a min')
         deck = Deck()
