@@ -101,13 +101,10 @@ def hit_or_stand(deck_, hand):
 
     while True:
         player_input = input('Do you want to hit or stand? h/s: ').lower()
-        print("Inside hit or stand")
 
         if player_input == 'h':
-            print("In h")
             hit(deck_, hand)
         elif player_input == 's':
-            print("In s")
             playing = False
         else:
             print("That's not a valid input. Try again")
